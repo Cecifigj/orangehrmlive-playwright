@@ -16,3 +16,23 @@ Install dependencies:
 - npm install dotenv --save
 
 -------------------------------------------------
+
+## Running the Tests
+
+To run the tests, use the following command:
+
+Run all the tests
+
+    npx playwright test
+
+Run a single test file
+
+    npx playwright test tests/sanityTest.spec.ts
+
+Run tests in headed browsers
+
+    npx playwright test --headed
+
+Ask for help
+
+    npx playwright test --help
