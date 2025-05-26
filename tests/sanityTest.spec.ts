@@ -13,7 +13,7 @@ test.beforeEach("Admin Login", async({ page })=> {
 
 });
 test.describe("Tests created for challenge", () => {
-test("Verify Job Details @sanity", async({ page })=> {
+test("Verify Job Details @smoke", async({ page })=> {
     await homepage.Job_Details();
 })
 })
