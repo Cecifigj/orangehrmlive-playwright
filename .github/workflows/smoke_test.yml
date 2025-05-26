@@ -1,0 +1,52 @@
+# This is a basic workflow that is manually triggered
+
+name: Smoke Test
+on:
+  workflow_dispatch:
+    inputs:
+      grep:
+        description: "Tests to grep "
+        required: false
+        default: "@smoke"
+
+  schedule:
+    - cron: '00 09 * * Mon-Fri' #runs smoke test everyweek day at 9am.
+permissions:
+  contents: read
+  id-token: write
+  actions: write
+jobs:
+  test:  
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: set env variables (user login, password)
+       
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Install playwright browsers
+        run: npx playwright install --with-deps
+ 
+          
+      - name: Run tests
+        run: npx playwright test tests/ --grep "@smoke" 
+
+
+      - name: Archive playwright html report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: ./playwright-html-report/
+
+      - name: Archive screenshots of failed tests
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-of-failed-tests
+          path: ./test-results/
